@@ -1,5 +1,4 @@
 import SwiperComp from "@/components/SwiperComp";
-import Image from "next/image";
 
 export default function Home() {
   return (
