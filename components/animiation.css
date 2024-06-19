@@ -1,0 +1,25 @@
+@keyframes swipe-left-right {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-30px);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    75% {
+      transform: translateX(30px);
+    }
+    100% {
+      transform: translateX(10);
+    }
+  }
+  
+  .swiper-container {
+    animation: swipe-left-right 2s ease-in-out;
+  }
+  
+  .swiper-init {
+    margin-left: 10px;
+  }

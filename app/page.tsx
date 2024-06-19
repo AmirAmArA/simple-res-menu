@@ -1,11 +1,12 @@
 import SwiperComp from "@/components/SwiperComp";
-
+import Logo from "../components/Logo";
 export default function Home() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-green-400 text-center py-6">
-        <h1 className="text-4xl font-bold text-white">El Restaurante</h1>
+      <div className="flex justify-center items-center bg-green-500  py-6 ">
+        {/* <h1 className="text-4xl font-bold text-white">El Restaurante</h1> */}
+        <Logo />
       </div>
 
       {/* Banner */}
@@ -13,7 +14,6 @@ export default function Home() {
       <div className="flex justify-center items-center bg-blue-500 bg-opacity-50 h-[20vh] text-center py-4">
         <h3 className="text-2xl font-semibold text-white">Banners</h3>
       </div>
-
 
       {/* Menu */}
 
@@ -48,7 +48,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-
-
   );
 }
