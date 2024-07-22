@@ -11,7 +11,7 @@ const menuItems = [
     title: "Shoes!",
     description: "If a dog chews shoes whose shoes does he choose?",
     imageUrl:
-      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+      "https://firebasestorage.googleapis.com/v0/b/resturant-menu-2e5d6.appspot.com/o/test%2Finstagram.png?alt=media&token=e52de92f-910c-475b-ac96-e97939cb1172",
   },
   {
     title: "Shoes!",
