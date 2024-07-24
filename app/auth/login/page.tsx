@@ -16,7 +16,7 @@ export default function LogInPage() {
         email,
         password,
         redirect: true,
-        callbackUrl: tmpCBU ? tmpCBU : "/admin/dashboard",
+        callbackUrl: tmpCBU ? tmpCBU : "http://localhost:3000/admin/dashboard",
       });
     } catch (error) {
       console.error(error);
