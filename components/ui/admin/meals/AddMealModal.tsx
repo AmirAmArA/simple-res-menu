@@ -31,12 +31,10 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-10">
-      <div className="bg-white p-4 rounded shadow-lg">
+      <div className="bg-gray-700 p-4 rounded shadow-lg">
         <h2 className="text-xl mb-4">Add Meal</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Name
-          </label>
+          <label className="block text-sm font-medium text-white">Name</label>
           <input
             type="text"
             value={name}
@@ -45,9 +43,7 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Price
-          </label>
+          <label className="block text-sm font-medium text-white">Price</label>
           <input
             type="text"
             value={price}

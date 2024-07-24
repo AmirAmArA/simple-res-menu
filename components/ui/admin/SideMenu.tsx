@@ -15,7 +15,6 @@ function SideMenu({ children }: any) {
         >
           Open Menu
         </label>
-        <h1 className="text-2xl font-bold">Dashboard</h1>
         {children}
       </div>
       <div className="drawer-side shadow-lg">

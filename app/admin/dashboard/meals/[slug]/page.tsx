@@ -40,7 +40,7 @@ const Page: React.FC<{ params: { slug: string } }> = async ({ params }) => {
 
   return (
     <div>
-      <h1>Sub-Meals for {slug}</h1>
+      {/* <h1>Sub-Meals for {slug}</h1> */}
       {error ? (
         <p>Error: {error}</p>
       ) : (

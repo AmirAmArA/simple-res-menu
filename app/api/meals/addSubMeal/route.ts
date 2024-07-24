@@ -6,10 +6,6 @@ import {  addDoc, collection,  getDocs,  } from 'firebase/firestore';
 
 export async function POST(request: Request) {
     const {smID,name,price} = await request.json()
-    
-    console.log('====================================');
-    console.log("id, name, price", smID,name,price);
-    console.log('====================================');
     try {
 
         const subMealsCollection = collection(db, "meals", smID, "sub-meals");

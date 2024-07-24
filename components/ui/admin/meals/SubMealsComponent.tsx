@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import DeleteConfirmationModal from "../../../DeleteConfirmationModal";
-import AddMealModal from "@/components/AddMealModal";
+import AddMealModal from "@/components/ui/admin/meals/AddMealModal";
 
 type SubMeal = {
   id: string;
@@ -83,13 +83,17 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
   const confirmDelete = async () => {
     if (mealToDelete) {
       try {
-        const response = await fetch(`/api/meals/deleteSubMeal`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: mealToDelete }),
-        });
+        const response = await fetch(
+          "http://localhost:3000/api/meals/deleteSubMeal",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ smID, mealToDelete }),
+            cache: "no-cache",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to delete sub-meal");
@@ -110,9 +114,39 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
     setMealToDelete(null);
   };
 
-  const handleSave = (id: string) => {
-    // Implement save logic here, possibly involving an API call
-    setEditingMealId(null);
+  const handleSave = async (
+    subMealId: string,
+    name: string,
+    price: string
+  ) => {
+    try {
+      const response = await fetch(`/api/meals/editSubMeal`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          smID,
+          mealToEdit: subMealId,
+          name,
+          price,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update sub-meal");
+      }
+
+      setSubMeals((prev) =>
+        prev.map((subMeal) =>
+          subMeal.id === subMealId ? { ...subMeal, name, price } : subMeal
+        )
+      );
+    } catch (err) {
+      console.error("Error updating sub-meal:", err);
+    } finally {
+      setEditingMealId(null);
+    }
   };
 
   const handleChange = (id: string, field: keyof SubMeal, value: string) => {
@@ -173,7 +207,16 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
                   <td className="">
                     <div className="flex space-x-2 ">
                       {editingMealId === subMeal.id ? (
-                        <button onClick={() => handleSave(subMeal.id)}>
+                        <button
+                          onClick={
+                            () =>
+                              handleSave(
+                                subMeal.id,
+                                editedSubMeals[subMeal.id].name,
+                                editedSubMeals[subMeal.id].price
+                              ) 
+                          }
+                        >
                           Save
                         </button>
                       ) : (
@@ -211,7 +254,7 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
           </table>
         </div>
       ) : (
-        <p>No sub-meals found for this meal.</p>
+        <p>No sub-meals found for this type.</p>
       )}
       <button
         className=" my-5 btn btn-accent"

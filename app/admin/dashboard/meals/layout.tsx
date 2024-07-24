@@ -6,7 +6,7 @@ type Props = {};
 function page({ children }: any) {
   return (
     <div>
-      <h1>CRUD Meals</h1>
+      <h1>Meals CRUD</h1>
       <MealsTypes />
       {children}
     </div>
