@@ -3,21 +3,19 @@
 import React, { useState } from "react";
 import DeleteConfirmationModal from "../../../DeleteConfirmationModal";
 import AddMealModal from "@/components/ui/admin/meals/AddMealModal";
-
-type SubMeal = {
-  id: string;
-  name: string;
-  price: string;
-};
+import DropdownWithCheckboxes from "./DropdownWithCheckboxes";
+import { SubMeal, Ingredient } from "@/types";
 
 type ClientSubMealsComponentProps = {
   initialSubMeals: SubMeal[];
+  allIngredients: Ingredient[];
   //Parent Sub Meal ID
   smID: string;
 };
 
 const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
   initialSubMeals,
+  allIngredients,
   smID,
 }) => {
   const [subMeals, setSubMeals] = useState<SubMeal[]>(initialSubMeals);
@@ -29,6 +27,9 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
     [key: string]: SubMeal;
   }>({});
 
+  console.log("====================================");
+  console.log("subMeals", subMeals);
+  console.log("====================================");
   const handleEdit = (subMeal: SubMeal) => {
     setEditingMealId(subMeal.id);
     setEditedSubMeals((prev) => ({
@@ -117,7 +118,8 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
   const handleSave = async (
     subMealId: string,
     name: string,
-    price: string
+    price: string,
+    ingredients: Ingredient[]
   ) => {
     try {
       const response = await fetch(`/api/meals/editSubMeal`, {
@@ -129,6 +131,7 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
           smID,
           mealToEdit: subMealId,
           name,
+          ingredients,
           price,
         }),
       });
@@ -139,7 +142,9 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
 
       setSubMeals((prev) =>
         prev.map((subMeal) =>
-          subMeal.id === subMealId ? { ...subMeal, name, price } : subMeal
+          subMeal.id === subMealId
+            ? { ...subMeal, name, price, ingredients }
+            : subMeal
         )
       );
     } catch (err) {
@@ -154,20 +159,31 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
       ...prev,
       [id]: {
         ...prev[id],
-        [field]: value,
+        [field]:
+          field === "ingredients"
+            ? value
+                .split(",")
+                .map(
+                  (name) =>
+                    allIngredients.find(
+                      (ingredient) => ingredient.name === name
+                    )!
+                )
+            : value,
       },
     }));
   };
 
   return (
-    <div className="w-[50%]">
+    <div className="">
       {subMeals.length > 0 ? (
-        <div className="overflow-x-auto ">
-          <table className="table ">
+        <div className=" ">
+          <table className="table w-[50vw] ">
             <thead>
               <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Ingredients</th>
                 <th>Price</th>
                 <th>Actions</th>
               </tr>
@@ -190,6 +206,22 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
                       subMeal.name
                     )}
                   </td>
+                  <td>
+                    {editingMealId === subMeal.id ? (
+                      <DropdownWithCheckboxes
+                        allIngredients={allIngredients}
+                        subMeal={subMeal}
+                        handleChange={handleChange}
+                        editedSubMeals={editedSubMeals}
+                      />
+                    ) : (
+                      <p className="line-clamp-1">
+                        {subMeal.ingredients
+                          .map((ingredient) => ingredient.name)
+                          .join(", ")}
+                      </p>
+                    )}
+                  </td>
                   <td className="">
                     {editingMealId === subMeal.id ? (
                       <input
@@ -208,13 +240,13 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
                     <div className="flex space-x-2 ">
                       {editingMealId === subMeal.id ? (
                         <button
-                          onClick={
-                            () =>
-                              handleSave(
-                                subMeal.id,
-                                editedSubMeals[subMeal.id].name,
-                                editedSubMeals[subMeal.id].price
-                              ) 
+                          onClick={() =>
+                            handleSave(
+                              subMeal.id,
+                              editedSubMeals[subMeal.id].name,
+                              editedSubMeals[subMeal.id].price,
+                              editedSubMeals[subMeal.id].ingredients
+                            )
                           }
                         >
                           Save
