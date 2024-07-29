@@ -11,7 +11,9 @@ const firebaseConfig = {
     measurementId: "G-Z6MNZ0NKC8",
   };
 
-const app = initializeApp(firebaseConfig);
+  const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_CLIENT || "{}");
+
+const app = initializeApp(serviceAccount);
 const db = getFirestore(app);
 
 export { db };
