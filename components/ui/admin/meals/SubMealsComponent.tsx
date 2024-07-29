@@ -27,9 +27,7 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
     [key: string]: SubMeal;
   }>({});
 
-  console.log("====================================");
-  console.log("subMeals", subMeals);
-  console.log("====================================");
+
   const handleEdit = (subMeal: SubMeal) => {
     setEditingMealId(subMeal.id);
     setEditedSubMeals((prev) => ({

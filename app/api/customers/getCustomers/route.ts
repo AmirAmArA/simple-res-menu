@@ -12,6 +12,7 @@ export async function GET() {
       ...doc.data()
     }));
 
+    
     return NextResponse.json(customers, { status: 200 });
 
   } catch (error) {

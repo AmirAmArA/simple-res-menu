@@ -3,14 +3,15 @@ import React from "react";
 
 type Props = {
   text: string;
-  func: () => void;
+  func: (a?: any) => void;
+  className?: string;
 };
 
-function Button({ func, text }: Props) {
+function Button({ func, text, className }: Props) {
   return (
-    <div>
-      <button onClick={() => func()}>{text}</button>
-    </div>
+    <button className={className} onClick={() => func()}>
+      {text}
+    </button>
   );
 }
 

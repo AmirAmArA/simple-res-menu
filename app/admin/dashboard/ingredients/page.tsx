@@ -4,8 +4,6 @@ import React from "react";
 
 type Props = {};
 
-
-
 async function fetchIngredients(): Promise<Ingredient[]> {
   const response = await fetch(
     "http://localhost:3000/api/ingredients/getIngredients",

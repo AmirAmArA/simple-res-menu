@@ -12,7 +12,7 @@ function SignOut({}: Props) {
   };
   return (
     <div>
-      <Button text="Sign Out" func={signOutServer} />
+      <Button className='btn btn-secondary' text="Sign Out" func={signOutServer} />
     </div>
   );
 }

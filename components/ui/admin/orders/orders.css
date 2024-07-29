@@ -1,0 +1,15 @@
+.steps .step::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0.5rem;
+    width: 100%;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+    margin-inline-start: -100%;
+  }
+  
+  .steps .step.step-primary::before {
+    background-color: #4CAF50; /* Replace with your primary color */
+  }

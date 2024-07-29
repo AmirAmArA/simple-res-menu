@@ -1,9 +1,10 @@
 "use client";
+import { Ingredient } from "@/types";
 import React, { useState } from "react";
 
 type AddIngredientModalProps = {
   onClose: () => void;
-  onAdd: (ingredient: { name: string }) => void;
+  onAdd: (ingredient: Ingredient) => void;
 };
 
 const AddIngredientModal: React.FC<AddIngredientModalProps> = ({
@@ -14,7 +15,8 @@ const AddIngredientModal: React.FC<AddIngredientModalProps> = ({
 
   const handleAdd = () => {
     if (name.trim()) {
-      onAdd({ name });
+      //tmp id will be generated automatically by firestore
+      onAdd({ id: "", name });
       setName("");
     }
   };

@@ -11,7 +11,7 @@ function SideMenu({ children }: any) {
         {/* Page content here */}
         <label
           htmlFor="my-drawer"
-          className="btn btn-primary drawer-button lg:hidden"
+          className="btn btn-primary drawer-button md:hidden w-40"
         >
           Open Menu
         </label>
