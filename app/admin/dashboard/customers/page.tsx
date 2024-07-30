@@ -4,7 +4,7 @@ import { Customer } from "@/types";
 
 async function fetchCustomers(): Promise<Customer[]> {
   const response = await fetch(
-    "http://localhost:3000/api/customers/getCustomers",
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/customers/getCustomers`,
     {
       method: "GET",
       headers: {

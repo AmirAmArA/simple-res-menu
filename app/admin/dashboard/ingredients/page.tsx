@@ -6,7 +6,7 @@ type Props = {};
 
 async function fetchIngredients(): Promise<Ingredient[]> {
   const response = await fetch(
-    "http://localhost:3000/api/ingredients/getIngredients",
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ingredients/getIngredients`,
     {
       method: "GET",
       headers: {

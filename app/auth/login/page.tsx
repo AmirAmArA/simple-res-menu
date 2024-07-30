@@ -16,7 +16,9 @@ export default function LogInPage() {
         email,
         password,
         redirect: true,
-        callbackUrl: tmpCBU ? tmpCBU : "http://localhost:3000/admin/dashboard",
+        callbackUrl: tmpCBU
+          ? tmpCBU
+          : `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/dashboard`,
       });
     } catch (error) {
       console.error(error);

@@ -13,14 +13,17 @@ type SubMeal = {
   price: string;
 };
 async function fetchSubMeals(id: string): Promise<SubMeal[]> {
-  const response = await fetch("http://localhost:3000/api/meals/getSubMeals", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id }),
-    cache: "no-cache",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/meals/getSubMeals`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+      cache: "no-cache",
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch meal types");
@@ -32,7 +35,7 @@ async function fetchSubMeals(id: string): Promise<SubMeal[]> {
 
 async function fetchIngredients(): Promise<SubMeal[]> {
   const response = await fetch(
-    "http://localhost:3000/api/ingredients/getIngredients",
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ingredients/getIngredients`,
     {
       method: "GET",
       headers: {

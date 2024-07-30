@@ -27,7 +27,6 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
     [key: string]: SubMeal;
   }>({});
 
-
   const handleEdit = (subMeal: SubMeal) => {
     setEditingMealId(subMeal.id);
     setEditedSubMeals((prev) => ({
@@ -47,7 +46,7 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
   }) => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/meals/addSubMeal",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/meals/addSubMeal`,
         {
           method: "POST",
           headers: {
@@ -83,7 +82,7 @@ const ClientSubMealsComponent: React.FC<ClientSubMealsComponentProps> = ({
     if (mealToDelete) {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/meals/deleteSubMeal",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/meals/deleteSubMeal`,
           {
             method: "POST",
             headers: {

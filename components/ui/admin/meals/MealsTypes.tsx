@@ -7,9 +7,12 @@ type MealType = {
 };
 
 async function fetchMealTypes(): Promise<MealType[]> {
-  const response = await fetch("http://localhost:3000/api/meals/getTypes", {
-    cache: "no-cache",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/meals/getTypes`,
+    {
+      cache: "no-cache",
+    }
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch meal types");
   }
