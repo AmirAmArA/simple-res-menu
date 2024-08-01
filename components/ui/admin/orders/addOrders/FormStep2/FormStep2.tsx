@@ -5,16 +5,13 @@ import TypeSelection from "./TypeSelection";
 import MealSelection from "./MealSelection";
 
 const fetchMealTypes = async (): Promise<MealType[]> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/meals/getTypes`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      cache: "no-cache",
-    }
-  );
+  const response = await fetch(`/api/meals/getTypes`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-cache",
+  });
   if (!response.ok) {
     throw new Error("Failed to fetch types");
   }

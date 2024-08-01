@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Order } from "@/types";
 import Button from "@/components/Button";
-import AddOrderModal from "./addOrders/FormStep2/AddOrderModal";
+import AddOrderModal from "./addOrders/AddOrderModal";
 
 type OrdersTableProps = {
   orders: Order[];

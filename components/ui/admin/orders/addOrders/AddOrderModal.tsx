@@ -2,8 +2,8 @@
 import Button from "@/components/Button";
 import { Customer, OrderMeal, SubMeal } from "@/types";
 import React, { cache, useEffect, useState } from "react";
-import FormStep1 from "../FormStep1/FormStep1";
-import FormStep2 from "./FormStep2";
+import FormStep1 from "./FormStep1/FormStep1";
+import FormStep2 from "./FormStep2/FormStep2";
 
 type Props = {
   toggleModal: () => void;
