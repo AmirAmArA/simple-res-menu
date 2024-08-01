@@ -19,7 +19,7 @@ async function fetchCustomers(): Promise<Customer[]> {
   }
   const data = await response.json();
 
-  return data;
+  return data.customers;
 }
 const page: React.FC = async () => {
   let customers: Customer[] = [];

@@ -1,4 +1,4 @@
-.steps .step::before {
+/* .steps .step::before {
     content: "";
     position: absolute;
     top: 0;
@@ -12,4 +12,4 @@
   
   .steps .step.step-primary::before {
     background-color: #4CAF50; /* Replace with your primary color */
-  }
+/* } */

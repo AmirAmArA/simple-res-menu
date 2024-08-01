@@ -5,6 +5,7 @@ import {  collection,  getDocs } from 'firebase/firestore';
 
 
 export async function GET(request: Request) {
+    
     try {
         const q = collection(db, "meals");
         const querySnapshot = await getDocs(q);

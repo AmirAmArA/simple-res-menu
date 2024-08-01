@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Order } from "@/types";
 import Button from "@/components/Button";
-import AddOrderModal from "./AddOrderModal";
+import AddOrderModal from "./addOrders/FormStep2/AddOrderModal";
 
 type OrdersTableProps = {
   orders: Order[];
@@ -21,13 +21,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
         func={toggleModal}
         className="btn btn-accent"
       />
-      {showAddOrderModal && (
-        <AddOrderModal
-          toggleModal={toggleModal}
-          // onClose={() => setShowAddOrderModal(false)}
-          // onOrderAdded={handleAddOrder}
-        />
-      )}
+      {showAddOrderModal && <AddOrderModal toggleModal={toggleModal} />}
       <table className="table-auto w-full">
         <thead>
           <tr>

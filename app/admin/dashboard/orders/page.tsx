@@ -1,16 +1,6 @@
 import OrdersTable from "@/components/ui/admin/orders/OrdersTable";
 import { Order } from "@/types";
 
-const fetchOrders = async (): Promise<Order[]> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/orders`
-  );
-  if (!response.ok) {
-    throw new Error("Failed to fetch orders");
-  }
-  return response.json();
-};
-
 const OrdersPage = async () => {
   let orders: Order[] = [];
 
