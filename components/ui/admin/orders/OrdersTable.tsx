@@ -14,6 +14,15 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
   const toggleModal = () => {
     setShowAddOrderModal(!showAddOrderModal);
   };
+
+  const calculateTotalAmount = (order: Order) => {
+    return order.meals
+      .reduce((total, orderMeal) => {
+        return total + parseFloat(orderMeal.meal.price) * orderMeal.quantity;
+      }, 0)
+      .toFixed(2);
+  };
+
   return (
     <div className="overflow-x-auto">
       <Button
@@ -28,16 +37,22 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
             <th className="px-4 py-2">Order ID</th>
             <th className="px-4 py-2">Customer</th>
             <th className="px-4 py-2">Order Date</th>
+            <th className="px-4 py-2">Delivery</th>
+            <th className="px-4 py-2">Status</th>
+            <th className="px-4 py-2">Total Amount</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {orders?.map((order) => (
             <tr key={order.id}>
-              <td className="border px-4 py-2">{order.id}</td>
-              <td className="border px-4 py-2">{order.customer.name}</td>
-              <td className="border px-4 py-2">
+              <td className=" px-4 py-2">{order.id}</td>
+              <td className=" px-4 py-2">{order.customer.name}</td>
+              <td className=" px-4 py-2">
                 {new Date(order.orderDate).toLocaleDateString()}
               </td>
+              <td className=" px-4 py-2">{order.delivery ? "Yes" : "No"}</td>
+              <td className=" px-4 py-2">{order.status}</td>
+              <td className=" px-4 py-2">${calculateTotalAmount(order)}</td>
             </tr>
           ))}
         </tbody>

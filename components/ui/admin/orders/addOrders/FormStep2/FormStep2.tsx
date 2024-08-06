@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import { MealType, OrderMeal } from "@/types";
+import { Ingredient, MealType, OrderMeal } from "@/types";
 import React, { useEffect, useState } from "react";
 import TypeSelection from "./TypeSelection";
 import MealSelection from "./MealSelection";
@@ -50,10 +50,26 @@ function FormStep2({ orderMeals, setOrderMeals }: Props) {
       <h2 className="text-xl font-bold">Add Meals</h2>
       <div className="space-y-2">
         {orderMeals.map((orderMeal, index) => (
-          <div key={index} className="flex items-center space-x-4">
-            <span>{orderMeal.meal.name}</span>
-            <span>Quantity: {orderMeal.quantity}</span>
-            <span>Price: ${orderMeal.meal.price}</span>
+          <div key={index} className="flex flex-col space-y-2">
+            <div className="flex items-center space-x-4">
+              <span>{orderMeal.meal.name}</span>
+              <span>Quantity: {orderMeal.quantity}</span>
+              <span>Price Per Unit: ${orderMeal.meal.price}</span>
+            </div>
+            {orderMeal.meal.ingredients.length > 0 ? (
+              <div className="flex flex-wrap space-x-2">
+                <span>Ingredients:</span>
+                {orderMeal.meal.ingredients.map(
+                  (ingredient: Ingredient, i: any) => (
+                    <span key={ingredient.id} className="text-sm ">
+                      {i + 1}- {ingredient.name}
+                    </span>
+                  )
+                )}
+              </div>
+            ) : (
+              <p>No Ingredients were selected</p>
+            )}
           </div>
         ))}
       </div>

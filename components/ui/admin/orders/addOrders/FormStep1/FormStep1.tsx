@@ -1,9 +1,10 @@
-import { Customer } from "@/types";
+import { Customer, Order } from "@/types";
 import React, { useState } from "react";
 import SearchCustomerTable from "./SearchCustomerTable";
 
 type Props = {
-  setSelectedCustomer: (c: Customer) => void;
+  setCurrentOrder: React.Dispatch<React.SetStateAction<Order | null>>;
+  
 };
 
 const fetchCustomers = async (
@@ -27,7 +28,7 @@ const fetchCustomers = async (
   return data;
 };
 
-function FormStep1({ setSelectedCustomer }: Props) {
+function FormStep1({ setCurrentOrder }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -52,7 +53,10 @@ function FormStep1({ setSelectedCustomer }: Props) {
   };
 
   const handleCustomerSelect = (customer: Customer) => {
-    setSelectedCustomer(customer);
+    setCurrentOrder((prevOrder) => ({
+      ...prevOrder!,
+      customer,
+    }));
     setSearchTerm(customer.phone);
   };
 

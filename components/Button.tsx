@@ -5,11 +5,12 @@ type Props = {
   text: string;
   func: (a?: any) => void;
   className?: string;
+  disabled?: boolean | undefined;
 };
 
-function Button({ func, text, className }: Props) {
+function Button({ func, text, className, disabled }: Props) {
   return (
-    <button className={className} onClick={() => func()}>
+    <button disabled={disabled} className={className} onClick={() => func()}>
       {text}
     </button>
   );

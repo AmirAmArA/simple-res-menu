@@ -1,9 +1,11 @@
 "use client";
 import Button from "@/components/Button";
-import { Customer, OrderMeal, SubMeal } from "@/types";
+import { Customer, Order, OrderMeal, SubMeal } from "@/types";
 import React, { cache, useEffect, useState } from "react";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
+import FormStep3 from "./FormStep3/FormStep3";
+import FormStep4 from "./FormStep4/FormStep4";
 
 type Props = {
   toggleModal: () => void;
@@ -15,14 +17,44 @@ function AddOrderModal({ toggleModal }: Props) {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
     null
   );
+  const [currentOrder, setCurrentOrder] = useState<Order | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const toggleWrapper = () => {
     setStep(1);
     toggleModal();
   };
 
+  const handleSubmit = async () => {
+    if (!currentOrder) return;
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/orders/addOrder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(currentOrder),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Order added successfully:", data);
+    } catch (error) {
+      console.error("Error adding order:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleStep = () => {
     if (step < 4) setStep(step + 1);
+    if (step === 4) handleSubmit();
   };
 
   const steps = [
@@ -35,41 +67,25 @@ function AddOrderModal({ toggleModal }: Props) {
   const renderForm = () => {
     switch (step) {
       case 1:
-        return <FormStep1 setSelectedCustomer={setSelectedCustomer} />;
+        return <FormStep1 setCurrentOrder={setCurrentOrder} />;
       case 2:
         return (
           <FormStep2 orderMeals={orderMeals} setOrderMeals={setOrderMeals} />
         );
       case 3:
         return (
-          <form className="space-y-4">
-            <h2 className="text-xl font-bold">Delivery</h2>
-            <label className="block">
-              <span className="text-gray-700">Address:</span>
-              <input
-                type="text"
-                name="address"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              />
-            </label>
-            <label className="block">
-              <span className="text-gray-700">Phone Number:</span>
-              <input
-                type="text"
-                name="phoneNumber"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              />
-            </label>
-          </form>
+          <FormStep3
+            setCurrentOrder={setCurrentOrder}
+            currentOrder={currentOrder}
+          />
         );
       case 4:
         return (
-          <div>
-            <h2 className="text-xl font-bold">Order Summary</h2>
-            <p>
-              Your order is being processed. You will receive your product soon.
-            </p>
-          </div>
+          <FormStep4
+            currentOrder={currentOrder}
+            setCurrentOrder={setCurrentOrder}
+            orderMeals={orderMeals}
+          />
         );
       default:
         return null;
@@ -98,7 +114,12 @@ function AddOrderModal({ toggleModal }: Props) {
       <div className="p-20 my-10 ">{renderForm()}</div>
 
       <div className="flex justify-end p-20">
-        <Button text="Next" func={handleStep} className="btn btn-info" />
+        <Button
+          text={loading ? "Submitting..." : "Next"}
+          func={handleStep}
+          className="btn btn-info"
+          disabled={loading}
+        />
       </div>
     </div>
   );
