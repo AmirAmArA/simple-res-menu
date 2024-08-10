@@ -14,9 +14,6 @@ type Props = {
 function AddOrderModal({ toggleModal }: Props) {
   const [step, setStep] = useState(1);
   const [orderMeals, setOrderMeals] = useState<OrderMeal[]>([]);
-  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
-    null
-  );
   const [currentOrder, setCurrentOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -93,8 +90,8 @@ function AddOrderModal({ toggleModal }: Props) {
   };
 
   return (
-    <div className="fixed overflow-auto inset-0 bg-gray-600 bg-opacity-99 flex flex-col z-10">
-      <div className="flex justify-end p-20">
+    <div className="fixed  inset-0 bg-gray-600 bg-opacity-99 flex flex-col z-10">
+      <div className="flex justify-end p-5">
         <Button text="❌" func={toggleWrapper} className="btn btn-error" />
       </div>
       <div className="w-full">
@@ -111,9 +108,9 @@ function AddOrderModal({ toggleModal }: Props) {
           ))}
         </ul>
       </div>
-      <div className="p-20 my-10 ">{renderForm()}</div>
+      <div className="p-5 my-5 ">{renderForm()}</div>
 
-      <div className="flex justify-end p-20">
+      <div className="flex justify-end p-10">
         <Button
           text={loading ? "Submitting..." : "Next"}
           func={handleStep}

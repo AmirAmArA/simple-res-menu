@@ -2,6 +2,7 @@ import { NextResponse,NextRequest } from "next/server";
 import { db } from '../../../../firebase/firebaseClient';
 import { collection, addDoc } from 'firebase/firestore';
 import { revalidatePath } from "next/cache";
+
 export async function POST(req: NextRequest) {
   try {
     const { name, phone, address } = await req.json();
