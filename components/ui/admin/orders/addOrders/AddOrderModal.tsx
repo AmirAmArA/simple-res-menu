@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/components/Button";
-import { Customer, Order, OrderMeal, SubMeal } from "@/types";
-import React, { cache, useEffect, useState } from "react";
+import { Order, OrderMeal } from "@/types";
+import React, { useState } from "react";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
 import FormStep3 from "./FormStep3/FormStep3";
@@ -17,6 +17,7 @@ function AddOrderModal({ toggleModal }: Props) {
   const [currentOrder, setCurrentOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // return steps count to 1 and close
   const toggleWrapper = () => {
     setStep(1);
     toggleModal();
@@ -24,9 +25,7 @@ function AddOrderModal({ toggleModal }: Props) {
 
   const handleSubmit = async () => {
     if (!currentOrder) return;
-
     setLoading(true);
-
     try {
       const response = await fetch("/api/orders/addOrder", {
         method: "POST",
@@ -46,6 +45,7 @@ function AddOrderModal({ toggleModal }: Props) {
       console.error("Error adding order:", error);
     } finally {
       setLoading(false);
+      toggleWrapper();
     }
   };
 
@@ -108,7 +108,7 @@ function AddOrderModal({ toggleModal }: Props) {
           ))}
         </ul>
       </div>
-      <div className="p-5 my-5 ">{renderForm()}</div>
+      <div className="p-5 my-5 flex-1 overflow-y-scroll">{renderForm()}</div>
 
       <div className="flex justify-end p-10">
         <Button

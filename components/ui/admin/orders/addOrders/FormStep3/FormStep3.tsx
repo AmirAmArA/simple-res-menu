@@ -1,5 +1,5 @@
-import { Customer, Order } from "@/types";
-import React, { useState } from "react";
+import { Order } from "@/types";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   setCurrentOrder: React.Dispatch<React.SetStateAction<Order | null>>;
@@ -10,6 +10,18 @@ function FormStep3({ setCurrentOrder, currentOrder }: Props) {
   const [deliveryOption, setDeliveryOption] = useState<1 | 0>(0);
   const [address, setAddress] = useState(currentOrder?.customer.address);
   const [phoneNumber, setPhoneNumber] = useState(currentOrder?.customer.phone);
+
+  useEffect(() => {
+    setCurrentOrder((prevOrder) => {
+      if (prevOrder) {
+        return {
+          ...prevOrder,
+          delivery: false,
+        };
+      }
+      return prevOrder; // or handle the case where prevOrder is null
+    });
+  }, []);
 
   const handleDeliveryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value) as 1 | 0;
